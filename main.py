@@ -1,5 +1,5 @@
 from turtle import *
-import random
+from random import*
 
 class toto(Turtle):
     def gotos(self, x, y):
@@ -8,42 +8,65 @@ class toto(Turtle):
         self.pendown()
 
 
-    def cadre(self):
-        self.gotos(0,0)
-        couleur = self.color('#453107')
+    def cadre(self, taille):
+        self.color('#453107')
         self.fd(250)
         self.begin_fill()
         for i in range(2):
             self.left(90)
-            self.fd(300)
+            self.fd(taille)
             self.left(90)
             self.fd(500)
         self.end_fill()
         self.pencolor('black')
         for i in range(2):
             self.left(90)
-            self.fd(300)
+            self.fd(taille)
             self.left(90)
             self.fd(500)
 
-    def livre(self, couleur, epeseur, angle=0):
-        self.gotos(0,0)
-        couleur = self.color(couleur)
+    def livre(self, couleur, epeseur, angle=360):
+        self.color('black')
         self.begin_fill()
         for i in range(2):
             self.fd(50*epeseur)
             self.left(90)
             self.fd(100)
             self.left(90)
-            self.end_fill()
+        self.end_fill()
+        self.fd(2)
+        self.left(90)
+        self.fd(2)
+        self.right(90)
+        self.color(couleur)
+        self.begin_fill()
+        for i in range(2):
+            self.fd(50*epeseur-4)
+            self.left(90)
+            self.fd(100-2)
+            self.left(90)
+        self.fd(50*epeseur-4)
+        self.end_fill()
+        self.fd(-2)
+        self.left(90)
+        self.fd(-2)
+        self.right(90)
 
-    def etageres(self, nombre):
+    def etageres(self, nombre,taille):
+        self.gotos(0,-300)
+        LCouleur=['red','blue','green']
+        self.cadre(taille)
+        self.gotos(-230,-280)
         for i in range(nombre):
-            for i in range(9):
+            for i in range(10):
                 self.livre('blue', 1)
+            oui.gotos(-230,-280-i*120)
 
 oui = toto()
+non = toto()
 oui.speed(0)
-oui.cadre()
-oui.livre('blue', 1, 90)
+oui.etageres(2,280)
+non.gotos(0,0)
+non.fd(10)
+non.bk(20)
 exitonclick()
