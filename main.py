@@ -59,7 +59,6 @@ class toto(Turtle):
         "Turquoise",
         "Coral",
         "SkyBlue",
-        "Rose",
         "Aqua",
         "Salmon",
         "Teal",
@@ -67,18 +66,15 @@ class toto(Turtle):
         "Indigo"
         ]
         self.cadre(taille)
-        self.gotos(-230,-280)
+        self.gotos(-230,-taille)
         for i in range(nombre):
             for i in range(10):
                 self.livre(choice(LCouleur), 1)
-            oui.gotos(-230,-280-i*120)
+            print("oui")
+            self.gotos(-230,-280+i*120)
 
 oui = toto()
-non = toto()
 oui.speed(0)
-oui.etageres(2,280)
-non.gotos(0,0)
-non.fd(10)
-non.bk(20)
+oui.etageres(3,280)
 exitonclick()
 
