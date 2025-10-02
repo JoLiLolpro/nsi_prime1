@@ -54,12 +54,23 @@ class toto(Turtle):
 
     def etageres(self, nombre,taille):
         self.gotos(0,-300)
-        LCouleur=['red','blue','green']
+        LCouleur = [
+        "Lavender",
+        "Turquoise",
+        "Coral",
+        "SkyBlue",
+        "Rose",
+        "Aqua",
+        "Salmon",
+        "Teal",
+        "Gold",
+        "Indigo"
+        ]
         self.cadre(taille)
         self.gotos(-230,-280)
         for i in range(nombre):
             for i in range(10):
-                self.livre('blue', 1)
+                self.livre(choice(LCouleur), 1)
             oui.gotos(-230,-280-i*120)
 
 oui = toto()
@@ -70,3 +81,4 @@ non.gotos(0,0)
 non.fd(10)
 non.bk(20)
 exitonclick()
+
