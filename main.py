@@ -1,6 +1,18 @@
 from turtle import *
 from random import*
 
+LCouleur = [
+"Lavender",
+"Turquoise",
+"Coral",
+"SkyBlue",
+"Aqua",
+"Salmon",
+"Teal",
+"Gold",
+"Indigo"
+]
+
 class toto(Turtle):
     def gotos(self, x, y):
         self.penup()
@@ -8,25 +20,35 @@ class toto(Turtle):
         self.pendown()
 
 
-    def cadre(self, taille):
-        self.color('#453107')
-        self.fd(250)
+    def cadre(self, hauteur):
+        self.color('#453107') # marron mais vraiment marron
         self.begin_fill()
         for i in range(2):
+            self.fd(600)
             self.left(90)
-            self.fd(taille)
+            self.fd(hauteur)
             self.left(90)
-            self.fd(500)
         self.end_fill()
-        self.pencolor('black')
+
+    def contoure(self, epeseur):
+        self.color('black')
+        self.begin_fill()
         for i in range(2):
+            self.fd(50*epeseur+4)
             self.left(90)
-            self.fd(taille)
+            self.fd(100+4)
             self.left(90)
-            self.fd(500)
+        self.end_fill()
+        # va a l'interieur de cadre pour draw le livre
+        self.fd(2)
+        self.left(90)
+        self.fd(2)
+        self.right(90)
+
 
     def livre(self, couleur, epeseur, angle=360):
-        self.color('black')
+        self.contoure(epeseur)
+        self.color(couleur)
         self.begin_fill()
         for i in range(2):
             self.fd(50*epeseur)
@@ -34,47 +56,20 @@ class toto(Turtle):
             self.fd(100)
             self.left(90)
         self.end_fill()
-        self.fd(2)
-        self.left(90)
-        self.fd(2)
-        self.right(90)
-        self.color(couleur)
-        self.begin_fill()
-        for i in range(2):
-            self.fd(50*epeseur-4)
-            self.left(90)
-            self.fd(100-2)
-            self.left(90)
-        self.fd(50*epeseur-4)
-        self.end_fill()
-        self.fd(-2)
-        self.left(90)
-        self.fd(-2)
-        self.right(90)
+        self.fd(90+2+2)
 
-    def etageres(self, nombre,taille):
-        self.gotos(0,-300)
-        LCouleur = [
-        "Lavender",
-        "Turquoise",
-        "Coral",
-        "SkyBlue",
-        "Aqua",
-        "Salmon",
-        "Teal",
-        "Gold",
-        "Indigo"
-        ]
-        self.cadre(taille)
-        self.gotos(-230,-taille)
-        for i in range(nombre):
-            for i in range(10):
+
+    def etageres(self, nombre, hauteur):
+        self.gotos(-300, 0) # va a gauche pour le cadre
+        self.cadre(hauteur)
+        self.gotos(-300+10, 0+10) # ecare de 10px pour le livre
+        for i in range(1, nombre+1):
+            for k in range(10):
                 self.livre(choice(LCouleur), 1)
-            print("oui")
-            self.gotos(-230,-280+i*120)
+            self.gotos(-300+10, 0+i*120)
+            print(i)
 
 oui = toto()
-oui.speed(0)
-oui.etageres(3,280)
+#tracer(20)
+oui.etageres(3,300)
 exitonclick()
-
