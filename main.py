@@ -28,10 +28,10 @@ class toto(Turtle):
         luigi = []
         peach = 0
         while True:
-            toad = choice(legal_epeseur_values)
-            mario = toad+4
-            peach += mario
-            if peach > 550:
+            toad = choice(legal_epeseur_values) # toad represente la taille de livre
+            mario = toad+4 # mario est plutot le livre ET la bordure
+            peach += mario 
+            if peach > 560-10: # ont calcule si ont ne depasse pas le cadre
                 return luigi
             luigi.append(toad)
 
