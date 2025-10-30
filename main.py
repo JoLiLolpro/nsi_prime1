@@ -13,10 +13,10 @@ LCouleur = [
 "Indigo"
 ]
 
-legal_epeseur_values = [18, 36]
-legal_hauteur_values = [70, 100]
+legal_epeseur_values = [18, 26, 36]
+legal_hauteur_values = [70, 80, 100]
 
-class toto(Turtle):
+class bibliotheque(Turtle):
     def gotos(self, x, y):
         """meme chose que goto() mais avec penup() inclus"""
         self.penup()
@@ -24,18 +24,18 @@ class toto(Turtle):
         self.pendown()
 
     def calcul_epeseur_livres(self):
-        """en collaboration avec nintendo ont va calaculer les epaisseur des livres pour que ca rentre dans l'etagere"""
+        """en collaboration avec nintendo ont va calaculer les epaisseur des livres pour que ca rentre dans l'etagere, ont decide aussi si un livre va etre pencher ou non"""
         luigi = []
-        peach = 0
+        peach = 0 # peach represente le current total des livres
         while True:
-            if random() < 0.2: # livre pencher 20% de chance
+            if random() < 0.20 and (not luigi or luigi[-1] != 0): # livre pencher a 20% de chance, le livre d'avant ne peut pas etre aussi pencher
                 toad = 0 # valeur qu'on pourra reconnaitre plus tard
                 mario = 36+4
             else:
-                toad = choice(legal_epeseur_values) # toad represente la taille de livre
+                toad = choice(legal_epeseur_values) # toad represente la taille du livre
                 mario = toad+4 # mario est le livre ET la bordure
             peach += mario
-            if peach > 560-10: # ont calcule si ont ne depasse pas le cadre
+            if peach > (560-10): # ont calcule si ont ne depasse pas le cadre
                 return luigi
             luigi.append(toad)
 
@@ -74,6 +74,7 @@ class toto(Turtle):
         self.right(90)
         self.fd(2)
         self.left(90)
+        self.pendown()
 
     def livre(self, couleur, epeseur, hauteur, angle=360):
         """dessine un livre avec comme multiplicateur epeseur et hauteur"""
@@ -87,15 +88,24 @@ class toto(Turtle):
             self.left(90)
         self.end_fill()
 
-    def livre_pencher(self):
-        self.livre("red", 36, 100)
+    def livre_pencher(self, hauteur):
+        """fait un livre pencher"""
+        position = self.position()
+        self.penup()
+        self.left(90)
+        self.fd(4)
+        self.right(100)
+        self.pendown()
+        self.livre(choice(LCouleur), 18, choice(legal_hauteur_values))
+        self.gotos(position[0]+2,position[1]+2)
+        self.left(10)
 
     def livres_avec_un_S(self, livres_liste):
         """fait les livres sur l'etagere"""
         for k in range(len(livres_liste)):
             epeseur_temp = livres_liste[k]
             if epeseur_temp == 0:
-                self.livre_pencher()
+                self.livre_pencher(choice(legal_hauteur_values))
                 epeseur_temp = 36
             else:
                 self.livre(choice(LCouleur), epeseur_temp, choice(legal_hauteur_values))
@@ -110,7 +120,7 @@ class toto(Turtle):
             self.gotos(-300+10, -300+i*120)
 
 
-oui = toto()
+oui = bibliotheque()
 oui.speed(0)
 oui.cadre(700)
 oui.etageres(4)
