@@ -13,7 +13,7 @@ LCouleur = [
 "Indigo"
 ]
 
-legal_epeseur_values = [0.50, 1]
+legal_epeseur_values = [18, 36]
 legal_hauteur_values = [0.70, 1]
 
 class toto(Turtle):
@@ -23,10 +23,22 @@ class toto(Turtle):
         self.goto(x,y)
         self.pendown()
 
+    def calcul_epeseur_livres(self):
+        """en collaboration avec nintendo ont va calaculer les epaisseur des livres pour que ca rentre dans l'etagere"""
+        luigi = []
+        peach = 0
+        while True:
+            toad = choice(legal_epeseur_values)
+            mario = toad+4
+            peach += mario
+            if peach > 550:
+                return luigi
+            luigi.append(toad)
+
     def cadre(self, hauteur):
         """dessine le grand cadre marron qui correspond au meuble"""
         self.gotos(-300, -300) # va a gauche pour le cadre
-        self.color('#453107') # marron mais vraiment marron
+        self.color('#5C4033') # marron mais vraiment marron
         self.begin_fill()
         for i in range(2):
             self.fd(560)
@@ -40,7 +52,7 @@ class toto(Turtle):
         self.color('black')
         self.begin_fill()
         for i in range(2):
-            self.fd(36*epeseur+4)
+            self.fd(epeseur+4)
             self.left(90)
             self.fd(100*hauteur+4)
             self.left(90)
@@ -54,7 +66,7 @@ class toto(Turtle):
     def livre_transition(self, epeseur):
         """repositionne la tortue apres chaque livres"""
         self.penup()
-        self.fd(36*epeseur+2)
+        self.fd(epeseur+2)
         self.right(90)
         self.fd(2)
         self.left(90)
@@ -65,7 +77,7 @@ class toto(Turtle):
         self.color(couleur)
         self.begin_fill()
         for i in range(2):
-            self.fd(36*epeseur)
+            self.fd(epeseur)
             self.left(90)
             self.fd(100*hauteur)
             self.left(90)
@@ -75,14 +87,17 @@ class toto(Turtle):
         """dessine une etagere composee de livres"""
         self.gotos(-300+10, -300+10) # ecart de 10px pour le premier livre
         for i in range(1, nombre+1):
-            while self.xcor() < -300+560-10:
-                epeseur_temp = choice(legal_epeseur_values)
+            livres_liste = self.calcul_epeseur_livres()
+            for k in range(len(livres_liste)):
+                epeseur_temp = livres_liste[k]
                 self.livre(choice(LCouleur), epeseur_temp, choice(legal_hauteur_values))
                 self.livre_transition(epeseur_temp)
             self.gotos(-300+10, -300+i*120)
 
+
 oui = toto()
 oui.speed(0)
-oui.cadre(600)
-oui.etageres(2)
+oui.cadre(700)
+oui.etageres(4)
 exitonclick()
+
