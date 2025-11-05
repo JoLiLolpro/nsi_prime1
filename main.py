@@ -24,20 +24,21 @@ class bibliotheque(Turtle):
         self.pendown()
 
     def calcul_epeseur_livres(self):
-        """en collaboration avec nintendo ont va calaculer les epaisseur des livres pour que ca rentre dans l'etagere, ont decide aussi si un livre va etre pencher ou non"""
-        luigi = []
-        peach = 0 # peach represente le current total des livres
+        """ont va calaculer les epaisseur des livres pour que ca rentre dans l'etagere, ont decide aussi si un livre va etre pencher ou non"""
+        Liste_Taille_Livre = []
+        total_livre = 0 # represente le current total des livres
         while True:
-            if random() < 0.20 and (not luigi or luigi[-1] != 0): # livre pencher a 20% de chance, le livre d'avant ne peut pas etre aussi pencher
-                toad = 0 # valeur qu'on pourra reconnaitre plus tard
-                mario = 36+4
+            if random() < 0.20 and (not Liste_Taille_Livre or Liste_Taille_Livre[-1] != 0): # livre pencher a 20% de chance, le livre d'avant ne peut pas etre aussi pencher
+                taille =-1 # valeur qu'on pourra reconnaitre plus tard
+                Livre_et_bordure = 36+4
             else:
-                toad = choice(legal_epeseur_values) # toad represente la taille du livre
-                mario = toad+4 # mario est le livre ET la bordure
-            peach += mario
-            if peach > (560-10): # ont calcule si ont ne depasse pas le cadre
-                return luigi
-            luigi.append(toad)
+                taille = choice(legal_epeseur_values) # represente la taille du livre
+                Livre_et_bordure = taille+4 # le livre ET la bordure
+            total_livre += Livre_et_bordure
+            if total_livre > (560-20): # ont calcule si ont ne depasse pas le cadre
+                return Liste_Taille_Livre
+            print(Liste_Taille_Livre)
+            Liste_Taille_Livre.append(taille)
 
     def cadre(self, hauteur):
         """dessine le grand cadre marron qui correspond au meuble"""
@@ -104,7 +105,7 @@ class bibliotheque(Turtle):
         """fait les livres sur l'etagere"""
         for k in range(len(livres_liste)):
             epeseur_temp = livres_liste[k]
-            if epeseur_temp == 0:
+            if epeseur_temp == -1:
                 self.livre_pencher(choice(legal_hauteur_values))
                 epeseur_temp = 36
             else:
