@@ -2,7 +2,7 @@
 
 ### les étapes réalisées:
 
-l'étape 5 a été completement realiser (cumulation de toute les ancienes étapes)
+l'étape 4 a été completement realiser (cumulation de toute les ancienes étapes)
 
 
 ### lancer le programme
