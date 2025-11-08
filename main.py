@@ -28,7 +28,7 @@ class bibliotheque(Turtle):
         Liste_Taille_Livre = []
         total_livre = 0 # represente le current total des livres
         while True:
-            if random() < 0.20 and (not Liste_Taille_Livre or Liste_Taille_Livre[-1] != 0): # livre pencher a 20% de chance, le livre d'avant ne peut pas etre aussi pencher
+            if random() < 0.20 and (not Liste_Taille_Livre or Liste_Taille_Livre[-1] != -1): # livre pencher a 20% de chance, le livre d'avant ne peut pas etre aussi pencher
                 taille =-1 # valeur qu'on pourra reconnaitre plus tard
                 Livre_et_bordure = 36+4
             else:
@@ -37,7 +37,6 @@ class bibliotheque(Turtle):
             total_livre += Livre_et_bordure
             if total_livre > (560-20): # ont calcule si ont ne depasse pas le cadre
                 return Liste_Taille_Livre
-            print(Liste_Taille_Livre)
             Liste_Taille_Livre.append(taille)
 
     def cadre(self, hauteur):
@@ -113,7 +112,8 @@ class bibliotheque(Turtle):
             self.livre_transition(epeseur_temp)
 
     def etageres(self, nombre):
-        """dessine une etagere composee de livres"""
+        """dessine un cadres puis des etageres composee de livres"""
+        self.cadre(120*nombre)
         self.gotos(-300+10, -300+10) # ecart de 10px pour le premier livre
         for i in range(1, nombre+1):
             livres_liste = self.calcul_epeseur_livres()
@@ -121,9 +121,8 @@ class bibliotheque(Turtle):
             self.gotos(-300+10, -300+i*120)
 
 
-oui = bibliotheque()
-oui.speed(0)
-oui.cadre(700)
-oui.etageres(4)
+#oui = bibliotheque()
+#oui.speed(0)
+#oui.etageres(4)
 exitonclick()
 
