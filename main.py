@@ -145,7 +145,6 @@ class bibliotheque(Turtle):
         """Permet de dessiner un rond de couleur aléatoire sur un livre"""
         self.color(choice(LCouleurMotifs))
         self.penup()
-        self.lt(90)
         self.bk(2)
         self.rt(90)
         self.pendown()
@@ -164,6 +163,7 @@ class bibliotheque(Turtle):
 
     def motif2(self, epeseur, hauteur): 
         """Permet de dessiner 3 carre de couleur aléatoire sur un livre""" 
+        self.setx(self.xcor() - 2)
         self.fd(hauteur//4) 
         self.motif_carre() 
         self.penup() 
@@ -177,8 +177,6 @@ class bibliotheque(Turtle):
         self.penup() 
         self.fd(hauteur//4)
         self.pendown()
-
-
 
     def motif3(self, epeseur, hauteur):
         """permet de dessiner un petit cœur sur un livre"""
@@ -224,9 +222,6 @@ class bibliotheque(Turtle):
             self.fd(hauteur)
             self.rt(90)
         self.end_fill()
-        self.penup()
-        self.bk(hauteur // 2)
-        self.pendown()
 
 
     def motif6(self, epeseur, hauteur):
