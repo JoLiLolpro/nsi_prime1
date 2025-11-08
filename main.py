@@ -1,17 +1,8 @@
 from turtle import *
 from random import*
 
-LCouleur = [
-"Lavender",
-"Turquoise",
-"Coral",
-"SkyBlue",
-"Aqua",
-"Salmon",
-"Teal",
-"Gold",
-"Indigo"
-]
+LCouleur = ["lavender","turquoise" , "gray", "silver", "red", "yellow", "lime", "green", "aqua",]
+LCouleurMotifs = ["teal", "blue", "purple","orange", "gold", "pink","coral","sky blue","black","white"]
 
 legal_epeseur_values = [18, 26, 36]
 legal_hauteur_values = [70, 80, 100]
@@ -87,6 +78,7 @@ class bibliotheque(Turtle):
             self.fd(hauteur)
             self.left(90)
         self.end_fill()
+        self.motifs(epeseur,hauteur)
 
     def livre_pencher(self, hauteur):
         """fait un livre pencher"""
@@ -120,9 +112,140 @@ class bibliotheque(Turtle):
             self.livres_avec_un_S(livres_liste)
             self.gotos(-300+10, -300+i*120)
 
+    def centre_Tortue(self,epeseur,hauteur):
+        """Permet de placer la Tortue au centre du livre pour dessiner le motif"""
+        self.penup()
+        self.fd(epeseur//2)
+        self.lt(90)
+        self.fd(hauteur//2)
+        self.pendown()
 
-#oui = bibliotheque()
-#oui.speed(0)
-#oui.etageres(4)
+    def centre_Tortue_inverse(self,epeseur,hauteur):
+        """Permet de replacer la Tortue au bon endroit pour dessiner le reste des livres"""
+        self.penup()
+        self.bk(epeseur//2)
+        self.rt(90)
+        self.bk(hauteur//2)
+        self.pendown()
+
+    def motifs(self, epeseur, hauteur):
+        """Permet de dessiner un motif sur chaque livre"""
+        pos = self.position() #enregistre la position de la tortue
+        orientation = self.heading() #enregistre l'angle de l'orientation de la tortue
+        self.centre_Tortue(epeseur,hauteur)
+        motifs_possibles = [self.motif1, self.motif2, self.motif3, self.motif4, self.motif5, self.motif6] # tout les motifs possibles
+        choice(motifs_possibles)(epeseur, hauteur) #choisit et appelle la fonction du motif qui est choisit aléatoirement
+        self.centre_Tortue_inverse(epeseur,hauteur)
+        self.penup()
+        self.goto(pos) #revien a la position où la tortue était pour etre sur que les autres livres soit bien aligner
+        self.setheading(orientation) #revien a l'orientation où la tortue était pour etre sur que les autres livres soit bien aligner
+        self.pendown()
+
+    def motif1(self, epeseur, hauteur):
+        """Permet de dessiner un rond de couleur aléatoire sur un livre"""
+        self.color(choice(LCouleurMotifs))
+        self.penup()
+        self.lt(90)
+        self.bk(2)
+        self.rt(90)
+        self.pendown()
+        self.begin_fill()
+        self.circle(5)
+        self.end_fill()   
+
+    def motif_carre(self):
+        """dessine un carre"""
+        self.color(choice(LCouleurMotifs))
+        self.begin_fill()
+        for k in range(4):
+            self.fd(5)
+            self.rt(90)
+        self.end_fill() 
+
+    def motif2(self, epeseur, hauteur): 
+        """Permet de dessiner 3 carre de couleur aléatoire sur un livre""" 
+        self.fd(hauteur//4) 
+        self.motif_carre() 
+        self.penup() 
+        self.bk(hauteur//4) 
+        self.pendown() 
+        self.motif_carre() 
+        self.penup()
+        self.bk(hauteur//4)
+        self.pendown() 
+        self.motif_carre() 
+        self.penup() 
+        self.fd(hauteur//4)
+        self.pendown()
+
+
+
+    def motif3(self, epeseur, hauteur):
+        """permet de dessiner un petit cœur sur un livre"""
+        self.color(choice(LCouleurMotifs))
+        self.rt(90)
+        self.begin_fill()
+        self.left(140)
+        self.fd(7)
+        self.circle(-3.5, 200)
+        self.left(120)
+        self.circle(-3.5, 200)
+        self.fd(7)
+        self.end_fill()
+        self.setheading(0)
+
+    def motif4(self, epeseur, hauteur):
+        """permet de dessiner une bande horizontal sur un livre"""
+        self.color(choice(LCouleurMotifs))
+        self.lt(90)
+        self.bk(epeseur//2)
+        self.begin_fill()
+        for _ in range(2):
+            self.fd(epeseur) 
+            self.rt(90)
+            self.fd(8)
+            self.rt(90)
+        self.end_fill()
+
+        
+
+    def motif5(self, epeseur, hauteur):
+        """permet de dessiner une bande vertical sur un livre"""
+        self.color(choice(LCouleurMotifs))
+        self.penup()
+        self.bk(hauteur // 2)
+        self.left(90)
+        self.bk(2)
+        self.pendown()
+        self.begin_fill()
+        for _ in range(2):
+            self.fd(4)
+            self.rt(90)
+            self.fd(hauteur)
+            self.rt(90)
+        self.end_fill()
+        self.penup()
+        self.bk(hauteur // 2)
+        self.pendown()
+
+
+    def motif6(self, epeseur, hauteur):
+        """permet de dessiner un rectangle de couleur sur la moitier basse d'un livre"""
+        self.color(choice(LCouleurMotifs))
+        self.penup()
+        self.bk(hauteur // 2)
+        self.lt(90)
+        self.fd(-epeseur // 2)
+        self.pendown()
+        self.begin_fill()
+        for _ in range(2):
+            self.fd(epeseur)
+            self.rt(90)
+            self.fd(hauteur // 2)
+            self.rt(90)
+        self.end_fill()
+
+oui = bibliotheque()
+oui.speed(0)
+oui.etageres(4)
 exitonclick()
-
